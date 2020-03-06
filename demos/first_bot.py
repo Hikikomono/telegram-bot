@@ -24,9 +24,17 @@ def echo(update: Update, context: CallbackContext):
     print('Message:[{}], Sender[{}]'.format(update.message.text, update.effective_user.username))
 
 
+def echo_sticker_id(update: Update, context: CallbackContext):
+    context.bot.send_sticker(chat_id=update.effective_chat.id,
+                             sticker='CAACAgIAAxkBAAO7XmJWiZVJopFVdivAo1LziANNYb4AAggAA8A2TxNvbCYL3hqbaRgE')
+    print('Sticker Receaved')
+
+
+echo_sticker_id_handler = MessageHandler(Filters.sticker, echo_sticker_id)
 echo_handler = MessageHandler(Filters.text, echo)
 start_handler = CommandHandler('start', start)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(echo_handler)
+dispatcher.add_handler(echo_sticker_id_handler)
 
 updater.start_polling()
