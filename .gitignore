@@ -2,3 +2,5 @@
 .idea/
 
 venv/
+
+config/api_token.json

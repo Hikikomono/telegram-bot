@@ -3,7 +3,10 @@ import logging
 from telegram import Update
 from telegram.ext import Updater, CallbackContext, CommandHandler, Dispatcher, MessageHandler, Filters
 
-updater = Updater(token='756295721:AAFPvKk8A0wSJ7RxBx2IzEsDHJ2BPc9GYS4', use_context=True)
+from config import load
+
+api_token = load.load_token()
+updater = Updater(token=api_token, use_context=True)
 dispatcher = updater.dispatcher
 dispatcher: Dispatcher
 
@@ -18,8 +21,9 @@ def start(update: Update, context: CallbackContext):
 
 def echo(update: Update, context: CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id,
-                             text='Message:[{}], Sender[{}]'.format(update.message.text,
-                                                                    update.effective_user.username))
+                             text='Message:[{}], Sender[{}, {}]'.format(update.message.text,
+                                                                        update.effective_user.username,
+                                                                        update.effective_user.id))
 
     print('Message:[{}], Sender[{}]'.format(update.message.text, update.effective_user.username))
 
