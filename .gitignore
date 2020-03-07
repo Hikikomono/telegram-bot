@@ -4,3 +4,5 @@
 venv/
 
 config/api_token.json
+
+config/__pycache__/
