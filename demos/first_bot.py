@@ -5,7 +5,7 @@ from telegram.ext import Updater, CallbackContext, CommandHandler, Dispatcher, M
 
 from config import load
 
-api_token = load.load_token()
+api_token = load.load_telegram_token()
 updater = Updater(token=api_token, use_context=True)
 dispatcher = updater.dispatcher
 dispatcher: Dispatcher
@@ -31,14 +31,18 @@ def echo(update: Update, context: CallbackContext):
 def echo_sticker_id(update: Update, context: CallbackContext):
     context.bot.send_sticker(chat_id=update.effective_chat.id,
                              sticker='CAACAgIAAxkBAAO7XmJWiZVJopFVdivAo1LziANNYb4AAggAA8A2TxNvbCYL3hqbaRgE')
-    print('Sticker Receaved')
+    print('Sticker Received')
 
 
-echo_sticker_id_handler = MessageHandler(Filters.sticker, echo_sticker_id)
-echo_handler = MessageHandler(Filters.text, echo)
-start_handler = CommandHandler('start', start)
-dispatcher.add_handler(start_handler)
-dispatcher.add_handler(echo_handler)
-dispatcher.add_handler(echo_sticker_id_handler)
+def run():
+    echo_sticker_id_handler = MessageHandler(Filters.sticker, echo_sticker_id)
+    echo_handler = MessageHandler(Filters.text, echo)
+    start_handler = CommandHandler('start', start)
+    dispatcher.add_handler(start_handler)
+    dispatcher.add_handler(echo_handler)
+    dispatcher.add_handler(echo_sticker_id_handler)
 
-updater.start_polling()
+    updater.start_polling()
+
+
+# run()
