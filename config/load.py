@@ -1,6 +1,9 @@
 import json
 import os
 
+import spotipy
+from spotipy import SpotifyClientCredentials
+
 
 def get_path():
     cur_path = os.path.dirname(__file__)
@@ -20,6 +23,23 @@ def load():
         raise
 
 
+def load_spotify_token():
+    file = load()
+    path = get_path()
+
+    try:
+        json_file = json.load(file)
+    except KeyError as e:
+        raise KeyError("Missing Spotify token in {}!".format(path)) from e
+
+    cid = json_file["spotify_client_id"]
+    secret = json_file["spotify_client_secret"]
+    client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
+
+    spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    return spotify
+
+
 def load_telegram_token():
     file = load()
     path = get_path()
@@ -27,6 +47,6 @@ def load_telegram_token():
         json_file = json.load(file)["telegram_token"]
         return json_file
     except KeyError as e:
-        raise KeyError("Missing token in {}!".format(path)) from e
+        raise KeyError("Missing Telegram token in {}!".format(path)) from e
 
-# print(load_token())
+# print(load_spotify_token())
