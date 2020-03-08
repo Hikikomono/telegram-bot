@@ -12,8 +12,8 @@ def get_path():
 
 
 def load():
-    """Loads the json file that contains the API token.
-    :returns the API token"""
+    """Loads the .json file
+    :returns the .json file"""
     path = get_path()
     try:
         file = open(path, "r", encoding="utf8")
@@ -24,6 +24,7 @@ def load():
 
 
 def load_spotify_token():
+    """:returns ready Spotify object"""
     file = load()
     path = get_path()
 
@@ -41,6 +42,7 @@ def load_spotify_token():
 
 
 def load_telegram_token():
+    """:returns the 'Telegram API-Token'"""
     file = load()
     path = get_path()
     try:
