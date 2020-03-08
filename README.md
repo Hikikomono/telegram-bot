@@ -8,4 +8,4 @@ depending on:
 
 # Setup
 ## Spotify-Account
-To login to your Spotify account start the login.py file in `config/`.
+To login to your Spotify account start the `login.py` file in `config/`.
