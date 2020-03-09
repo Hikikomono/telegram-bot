@@ -14,7 +14,7 @@ def load_file(open_mode="r"):
 
 def request_login_info():
     print("[Login to your Spotify account!]")
-    print("Not that your Account need to be Premium to work properly.")
+    print("Note, that your account needs to be Premium to work properly.")
     username = input("Username/e-mail: ")
     password = getpass("Password: ")
     save_in_json(username, password)
