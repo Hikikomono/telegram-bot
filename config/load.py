@@ -18,9 +18,8 @@ def load():
     try:
         file = open(path, "r", encoding="utf8")
         return file
-    except FileNotFoundError:
-        print('The "api_token.json" is missing. Put this file in the config folder before running the program.')
-        raise
+    except FileNotFoundError as e:
+        raise FileNotFoundError('The "api_token.json" is missing. Put this file in the config folder before running the program.') from e
 
 
 def load_spotify_token():
