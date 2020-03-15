@@ -1,6 +1,6 @@
-from config.load import load_spotify_token
+from config.load import load_spotify_application
 
-spotify = load_spotify_token()
+spotify = load_spotify_application()
 birdy_uri = 'spotify:artist:2WX2uTcsvV5OnS0inACecP'
 
 results = spotify.artist_albums(birdy_uri, album_type='album')

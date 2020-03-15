@@ -4,6 +4,8 @@ import os
 import spotipy
 from spotipy import SpotifyClientCredentials
 
+from config.login import get_user_token
+
 
 def get_path():
     cur_path = os.path.dirname(__file__)
@@ -19,10 +21,15 @@ def load():
         file = open(path, "r", encoding="utf8")
         return file
     except FileNotFoundError as e:
-        raise FileNotFoundError('The "api_token.json" is missing. Put this file in the config folder before running the program.') from e
+        raise FileNotFoundError(
+            'The "api_token.json" is missing. Put this file in the config folder before running the program.') from e
 
 
-def load_spotify_token():
+def load_user_into_spotify():
+    spotipy.Spotify(auth=get_user_token())
+
+
+def load_spotify_application():
     """:returns ready Spotify object"""
     file = load()
     path = get_path()
@@ -46,10 +53,10 @@ def load_telegram_token():
     file = load()
     path = get_path()
     try:
-        json_file = json.load(file)["telegram_token"]
+        token = json.load(file)["telegram_token"]
         file.close()
-        return json_file
+        return token
     except KeyError as e:
         raise KeyError("Missing Telegram token in {}!".format(path)) from e
 
-# print(load_spotify_token())
+# print(load_spotify_application())
